@@ -26,6 +26,13 @@
 			],
 			"transformations": [
 				{
+					"name": "clienteIDGEN",
+					"description": "updating the column 'CID, "
+				},
+				{
+					"name": "filter1"
+				},
+				{
 					"name": "cast1"
 				}
 			],
@@ -40,7 +47,22 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     query: 'SELECT CID, BDATE, GEN FROM BRONZE.CLIENTES_BD_GEN',",
 				"     format: 'query') ~> source1",
-				"source1 cast(output(",
+				"source1 derive(CID = toInteger(substring(CID, 9, 5)),",
+				"          GEN = iif(\r",
+				"    isNull(GEN) || trim(GEN) == '',\r",
+				"    'INVALID',\r",
+				"    iif(\r",
+				"        upper(trim(GEN)) == 'MALE' || upper(trim(GEN)) == 'M', 'Male',\r",
+				"        iif(\r",
+				"            upper(trim(GEN)) == 'FEMALE' || upper(trim(GEN)) == 'F', 'Female',\r",
+				"            'INVALID'\r",
+				"        )\r",
+				"    )\r",
+				")\r",
+				") ~> clienteIDGEN",
+				"clienteIDGEN filter(GEN == 'Male' || GEN == 'Female'",
+				") ~> filter1",
+				"filter1 cast(output(",
 				"          BDATE as date 'yyyy-MM-dd'",
 				"     ),",
 				"     errors: true) ~> cast1",
