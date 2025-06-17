@@ -67,7 +67,7 @@
 				"cast1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          CID as string,",
+				"          CID as integer,",
 				"          BDATE as date,",
 				"          GEN as string",
 				"     ),",

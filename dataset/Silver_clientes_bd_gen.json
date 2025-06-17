@@ -13,7 +13,8 @@
 		"schema": [
 			{
 				"name": "CID",
-				"type": "varchar"
+				"type": "int",
+				"precision": 10
 			},
 			{
 				"name": "BDATE",
