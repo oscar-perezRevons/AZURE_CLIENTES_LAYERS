@@ -1,0 +1,24 @@
+{
+	"name": "Gold_DIM_MARITAL_STATUS_CLIENTES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_dw_clientes_productos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "GOLD"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "cst_marital_status",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "GOLD",
+			"table": "DIM_MARITAL_STATUS_CLIENTES"
+		}
+	}
+}

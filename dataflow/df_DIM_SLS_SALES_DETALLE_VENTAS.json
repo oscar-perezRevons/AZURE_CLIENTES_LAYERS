@@ -1,0 +1,32 @@
+{
+	"name": "df_DIM_SLS_SALES_DETALLE_VENTAS",
+	"properties": {
+		"folder": {
+			"name": "GOLD"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Silver_detalle_ventas",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          sls_sales as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT distinct(sls_sales) FROM SILVER.DETALLE_VENTAS',",
+				"     format: 'query') ~> source1"
+			]
+		}
+	}
+}

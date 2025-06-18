@@ -1,0 +1,24 @@
+{
+	"name": "Gold_DIM_GEN_CLIENTES_BD_GEN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_dw_clientes_productos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "GOLD"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "GEN",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "GOLD",
+			"table": "DIM_GEN_CLIENTES_BD_GEN"
+		}
+	}
+}

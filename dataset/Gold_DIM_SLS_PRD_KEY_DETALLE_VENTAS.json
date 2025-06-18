@@ -1,0 +1,24 @@
+{
+	"name": "Gold_DIM_SLS_PRD_KEY_DETALLE_VENTAS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_dw_clientes_productos",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "GOLD"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "sls_prd_key",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "GOLD",
+			"table": "DIM_SLS_PRD_KEY_DETALLE_VENTAS"
+		}
+	}
+}

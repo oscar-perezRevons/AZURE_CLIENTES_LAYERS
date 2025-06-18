@@ -1,0 +1,32 @@
+{
+	"name": "df_DIM_BDATE_CLIENTES_BD_GEN",
+	"properties": {
+		"folder": {
+			"name": "GOLD"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Silver_clientes_bd_gen",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          BDATE as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     query: 'SELECT distinct(BDATE) FROM SILVER.CLIENTES_BD_GEN',",
+				"     format: 'query') ~> source1"
+			]
+		}
+	}
+}
