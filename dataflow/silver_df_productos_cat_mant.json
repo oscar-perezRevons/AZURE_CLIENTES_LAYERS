@@ -24,7 +24,11 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "filter1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          ID as string,",
@@ -37,7 +41,8 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     query: 'SELECT ID, CAT, SUBCAT, MAINTENANCE FROM BRONZE.PRODUCTOS_CAT_MANT',",
 				"     format: 'query') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 filter(!isNull(ID) && !isNull(CAT) && !isNull(SUBCAT) && !isNull(MAINTENANCE)) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          ID as string,",

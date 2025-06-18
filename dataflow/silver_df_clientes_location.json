@@ -24,7 +24,14 @@
 					"name": "sink1"
 				}
 			],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "filter1"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          CID as string,",
@@ -35,10 +42,12 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     query: 'SELECT CID, CNTRY FROM BRONZE.CLIENTES_LOCATION',",
 				"     format: 'query') ~> source1",
-				"source1 sink(allowSchemaDrift: true,",
+				"source1 derive(CID = toInteger(regexReplace(CID, '[^0-9]', ''))) ~> derivedColumn1",
+				"derivedColumn1 filter(!isNull(CNTRY)) ~> filter1",
+				"filter1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          CID as string,",
+				"          CID as integer,",
 				"          CNTRY as string",
 				"     ),",
 				"     deletable:false,",
